@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  app:
+    image: sangkips/quizbox:latest
+    working_dir: /usr/src/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - Env=local
+      - DEBUG=1
+      - ALLOWED_HOSTS=*
+      - SECRET_KEY=mystrngpassword
+      - APP_PATH=/var/www/quizbox
+      - DATABASE_DB=quizbox
+      - DATABASE_USER=quizbox
+      - DATABASE_PASSWORD=quizbox
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+
+    networks:
+      - quizbox_net
+  db:
+    image: postgres:15.1-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - quizbox_pg:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=quizbox
+      - POSTGRES_USER=quizbox
+      - POSTGRES_DB=quizbox
+    networks:
+      - quizbox_net
+volumes:
+  quizbox_pg:
+  quizbox_app:
+
+networks:
+  quizbox_net:
