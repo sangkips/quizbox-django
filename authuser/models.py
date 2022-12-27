@@ -10,7 +10,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ["username"]
 
     def __str__(self):
-        return self.email
+        return self.username
 
 
 class Profile(models.Model):
@@ -22,7 +22,7 @@ class Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     display_picture = models.ImageField(
-        default="blank-profile-picture.png", upload_to="profile_images"
+        default="avatar.jpeg", upload_to="profile_images"
     )
     bio = models.TextField(blank=True, null=True)
 
