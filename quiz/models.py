@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-from authuser.models import User
 
 # Create your models here.
 
@@ -30,7 +29,7 @@ class Question(models.Model):
     body = models.TextField()
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     tags = models.ForeignKey(Tag, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_created=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):

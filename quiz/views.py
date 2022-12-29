@@ -1,4 +1,8 @@
 from rest_framework import viewsets, permissions
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
 from authuser.permissions import IsOwnerOrReadOnly
 
 from quiz.models import Question, Tag, Answer, Vote
@@ -8,6 +12,22 @@ from .serializers import (
     VoteSerializer,
     AnswerSerializer,
 )
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token["username"] = user.username
+        # ...
+
+        return token
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 
 class TagViewSet(viewsets.ModelViewSet):
