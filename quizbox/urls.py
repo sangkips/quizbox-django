@@ -8,9 +8,8 @@ from quiz.views import MyTokenObtainPairView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include("rest_framework.urls")),
-    path("quiz/", include("quiz.urls")),
-    path("user/", include("authuser.urls")),
+    path("api/", include("quiz.urls")),
+    path("api/authuser/", include("authuser.urls")),
     path("api/token/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]

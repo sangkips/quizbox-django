@@ -3,10 +3,10 @@ from rest_framework import routers
 from .views import QuestionViewSet, TagViewSet, AnswerViewSet, VoteViewSet
 
 router = routers.DefaultRouter()
-router.register("tags", TagViewSet, basename="tag"),
-router.register("questions", QuestionViewSet, basename="question"),
-router.register("answers", AnswerViewSet, basename="answer"),
-router.register("votes", VoteViewSet, basename="vote"),
+router.register("tag", TagViewSet, basename="tag"),
+router.register("question", QuestionViewSet, basename="question"),
+router.register("answer", AnswerViewSet, basename="answer"),
+router.register("vote", VoteViewSet, basename="vote"),
 
 
 urlpatterns = [
