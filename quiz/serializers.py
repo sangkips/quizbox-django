@@ -1,8 +1,9 @@
 from rest_framework import serializers
+
 from .models import *
 
 
-class TagSerializer(serializers.HyperlinkedModelSerializer):
+class TagSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source="owner.username")
 
     class Meta:
@@ -10,15 +11,17 @@ class TagSerializer(serializers.HyperlinkedModelSerializer):
         fields = "__all__"
 
 
-class QuestionSerializer(serializers.HyperlinkedModelSerializer):
+class QuestionSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source="owner.username")
+    title = serializers.CharField()
+    body = serializers.CharField()
 
     class Meta:
         model = Question
-        fields = "__all__"
+        fields = ["id", "title", "body", "owner"]
 
 
-class AnswerSerializer(serializers.HyperlinkedModelSerializer):
+class AnswerSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source="owner.username")
 
     class Meta:
@@ -26,7 +29,7 @@ class AnswerSerializer(serializers.HyperlinkedModelSerializer):
         fields = "__all__"
 
 
-class VoteSerializer(serializers.HyperlinkedModelSerializer):
+class VoteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source="owner.username")
 
     class Meta:

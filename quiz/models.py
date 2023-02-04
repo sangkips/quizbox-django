@@ -28,7 +28,7 @@ class Question(models.Model):
     title = models.CharField(max_length=255)
     body = models.TextField()
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    tags = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    tags = models.ForeignKey(Tag, on_delete=models.CASCADE, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -38,7 +38,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
 
-    question_id = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
+    question_id = models.ForeignKey(Question, on_delete=models.CASCADE, null=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -51,7 +51,7 @@ class Answer(models.Model):
 class Vote(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     vote_choice = models.CharField(max_length=10, choices=Votes, default=None)
-    quetion_id = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
+    question_id = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
     answer_id = models.ForeignKey(Answer, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
